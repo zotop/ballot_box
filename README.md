@@ -1,0 +1,4 @@
+# BallotBox
+
+**TODO: Add description**
+
