@@ -1,4 +1,4 @@
-defmodule Voting.Repo.Migrations.CreateQuestions do
+defmodule Voting.Repo.Migrations.CreateQuestionTable do
   use Ecto.Migration
 
   def change do
