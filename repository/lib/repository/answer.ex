@@ -5,5 +5,6 @@ defmodule Repository.Answer do
   schema "answer" do
     field :answer, :string
     belongs_to :question, Repository.Question
+    has_many :vote, Repository.Vote
   end
 end
