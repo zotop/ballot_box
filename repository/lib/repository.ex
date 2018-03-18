@@ -15,4 +15,11 @@ defmodule Repository do
   def hello do
     :world
   end
+
+  def create_question(question, answers) do
+    answers = Enum.map(answers, fn(answer) -> %{answer: answer} end)
+    question = Ecto.Changeset.change(%Repository.Question{}, question: question, answer: answers)
+    Voting.Repo.insert!(question)
+  end
+
 end

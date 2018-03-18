@@ -3,8 +3,8 @@ defmodule Voting.Repo.Migrations.CreateVoteTable do
 
   def change do
     create table(:vote, primary_key: false) do
-      add :id, :uuid, primary_key: true
-      add :answer_id, references(:answer, type: :uuid, null: false)
+      add :id, :binary_id, primary_key: true
+      add :answer_id, references(:answer, type: :binary_id, null: false)
       add :votes, :integer
     end
   end
