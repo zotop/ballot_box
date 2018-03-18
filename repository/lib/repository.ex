@@ -22,4 +22,8 @@ defmodule Repository do
     Voting.Repo.insert!(question)
   end
 
+  def create_voter do
+    Voting.Repo.insert!(%Repository.Voter{})
+  end
+
 end
