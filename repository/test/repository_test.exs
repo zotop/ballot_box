@@ -35,4 +35,21 @@ defmodule RepositoryTest do
     assert number_of_voters == 1
     assert created_voter.id == voter_id
   end
+
+  test "voting for an answer should increment number of votes" do
+    question = "What is my name?"
+    answers = ["John", "Julia"]
+    created_question = Repository.create_question(question, answers)
+    answer_id = Enum.at(created_question.answer, 0).id
+    voter_1 = Repository.create_voter()
+    voter_2 = Repository.create_voter()
+    Repository.vote!(voter_1.id, answer_id)
+    Repository.vote!(voter_2.id, answer_id)
+
+    vote_count = Voting.Repo.one(from x in Repository.Vote,
+                                 where: x.answer_id == ^answer_id,
+                                 select: x.votes)
+
+    
+  end
 end
