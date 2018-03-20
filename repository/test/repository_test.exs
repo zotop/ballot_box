@@ -15,16 +15,20 @@ defmodule RepositoryTest do
     assert Repository.hello() == :world
   end
 
-  test "create a question" do
+  test "should be able to insert a question with answers" do
     question = "What is my name?"
     answers = ["John", "Julia"]
     created_question = Repository.create_question(question, answers)
     answer_1 = Enum.at(created_question.answer, 0).answer
     answer_2 = Enum.at(created_question.answer, 1).answer
+    votes_answer_1 = Enum.at(created_question.answer, 0).votes
+    votes_answer_2 = Enum.at(created_question.answer, 1).votes
 
     assert created_question.question == question
     assert length(created_question.answer) == 2
     assert answers -- [answer_1, answer_2] == []
+    assert votes_answer_1 == 0
+    assert votes_answer_2 == 0
   end
 
   test "create a voter" do
@@ -46,10 +50,10 @@ defmodule RepositoryTest do
     Repository.vote!(voter_1.id, answer_id)
     Repository.vote!(voter_2.id, answer_id)
 
-    vote_count = Voting.Repo.one(from x in Repository.Vote,
+    vote_count = Voting.Repo.one(from x in Repository.Answer,
                                  where: x.answer_id == ^answer_id,
                                  select: x.votes)
 
-    
+
   end
 end

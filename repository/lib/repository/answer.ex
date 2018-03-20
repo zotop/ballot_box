@@ -5,6 +5,6 @@ defmodule Repository.Answer do
   schema "answer" do
     field :answer, :string
     belongs_to :question, Repository.Question, foreign_key: :question_id, type: :binary_id
-    has_many :vote, Repository.Vote
+    field :votes, :integer
   end
 end

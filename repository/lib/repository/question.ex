@@ -6,7 +6,6 @@ defmodule Repository.Question do
   schema "question" do
     field :question, :string
     has_many :answer, Repository.Answer
-    has_many :vote, Repository.Vote
   end
 
   def changeset(question, params \\ %{}) do
