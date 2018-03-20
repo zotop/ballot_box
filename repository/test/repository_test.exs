@@ -54,7 +54,16 @@ defmodule RepositoryTest do
                                  where: x.id == ^answer_id,
                                  select: x.votes)
 
-    assert vote_count == 2                            
+    assert vote_count == 2
+  end
 
+  test "a non recognized voter cannot vote" do
+    question = "What is my name?"
+    answers = ["John", "Julia"]
+    created_question = Repository.create_question(question, answers)
+    answer_id = Enum.at(created_question.answer, 0).id
+
+    Repository.vote!("wrong_voter_id", answer_id)
+    #TODO: get error
   end
 end
