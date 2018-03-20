@@ -51,9 +51,10 @@ defmodule RepositoryTest do
     Repository.vote!(voter_2.id, answer_id)
 
     vote_count = Voting.Repo.one(from x in Repository.Answer,
-                                 where: x.answer_id == ^answer_id,
+                                 where: x.id == ^answer_id,
                                  select: x.votes)
 
+    assert vote_count == 2                            
 
   end
 end

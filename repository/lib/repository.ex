@@ -27,7 +27,9 @@ defmodule Repository do
   end
 
   def vote!(voter_id, answer_id) do
-    #answer_to_vote_for = Voting.Repo.get_by!(Repository.Vote, answer_id: answer_id)
+    answer_to_vote_for = Voting.Repo.get_by!(Repository.Answer, id: answer_id)
+    answer_to_vote_for = Ecto.Changeset.change(answer_to_vote_for, votes: answer_to_vote_for.votes + 1)
+    Voting.Repo.update!(answer_to_vote_for)
   end
 
 
