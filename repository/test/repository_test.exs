@@ -3,16 +3,10 @@ defmodule RepositoryTest do
   use ExUnit.Case
 
   doctest Repository
-
-
+  
   setup do
     # Explicitly get a connection before each test
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Voting.Repo)
-  end
-
-
-  test "greets the world" do
-    assert Repository.hello() == :world
   end
 
   test "should be able to insert a question with answers" do
@@ -71,6 +65,6 @@ defmodule RepositoryTest do
                                  where: x.id == ^answer_id,
                                  select: x.votes)
 
-    assert vote_count == 0                             
+    assert vote_count == 0
   end
 end
