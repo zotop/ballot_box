@@ -26,8 +26,8 @@ defmodule Repository do
     Voting.Repo.insert!(%Repository.Voter{})
   end
 
-  #TODO: return error if voter_id is not recognized
   def vote!(voter_id, answer_id) do
+    voter = Voting.Repo.get_by!(Repository.Voter, id: voter_id)
     answer_to_vote_for = Voting.Repo.get_by!(Repository.Answer, id: answer_id)
     answer_to_vote_for = Ecto.Changeset.change(answer_to_vote_for, votes: answer_to_vote_for.votes + 1)
     Voting.Repo.update!(answer_to_vote_for)

@@ -57,13 +57,20 @@ defmodule RepositoryTest do
     assert vote_count == 2
   end
 
-  test "a non recognized voter cannot vote" do
+  test "a not found voter cannot vote" do
     question = "What is my name?"
     answers = ["John", "Julia"]
     created_question = Repository.create_question(question, answers)
     answer_id = Enum.at(created_question.answer, 0).id
 
-    Repository.vote!("wrong_voter_id", answer_id)
-    #TODO: get error
+    assert_raise Ecto.NoResultsError, fn ->
+      Repository.vote!(Ecto.UUID.generate, answer_id)
+    end
+
+    vote_count = Voting.Repo.one(from x in Repository.Answer,
+                                 where: x.id == ^answer_id,
+                                 select: x.votes)
+
+    assert vote_count == 0                             
   end
 end
