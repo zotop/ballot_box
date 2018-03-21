@@ -3,7 +3,7 @@ defmodule RepositoryTest do
   use ExUnit.Case
 
   doctest Repository
-  
+
   setup do
     # Explicitly get a connection before each test
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Voting.Repo)
@@ -13,10 +13,11 @@ defmodule RepositoryTest do
     question = "What is my name?"
     answers = ["John", "Julia"]
     created_question = Repository.create_question(question, answers)
-    answer_1 = Enum.at(created_question.answer, 0).answer
-    answer_2 = Enum.at(created_question.answer, 1).answer
-    votes_answer_1 = Enum.at(created_question.answer, 0).votes
-    votes_answer_2 = Enum.at(created_question.answer, 1).votes
+    created_answers = created_question.answer
+    answer_1 = Enum.at(created_answers, 0).answer
+    answer_2 = Enum.at(created_answers, 1).answer
+    votes_answer_1 = Enum.at(created_answers, 0).votes
+    votes_answer_2 = Enum.at(created_answers, 1).votes
 
     assert created_question.question == question
     assert length(created_question.answer) == 2
