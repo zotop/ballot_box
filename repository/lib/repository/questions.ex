@@ -1,16 +1,16 @@
-defmodule Repository.Question do
+defmodule Repository.Questions do
   use Ecto.Schema
   import Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
-  schema "question" do
+  schema "questions" do
     field :question, :string
-    has_many :answer, Repository.Answer
+    has_many :answers, Repository.Answers
   end
 
   def changeset(question, params \\ %{}) do
     question
     |> cast(params, [:question])
-    |> cast_assoc(:answer)
+    |> cast_assoc(:answers)
   end
 end

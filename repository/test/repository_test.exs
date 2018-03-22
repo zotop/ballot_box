@@ -13,14 +13,14 @@ defmodule RepositoryTest do
     question = "What is my name?"
     answers = ["John", "Julia"]
     created_question = Repository.create_question(question, answers)
-    created_answers = created_question.answer
+    created_answers = created_question.answers
     answer_1 = Enum.at(created_answers, 0).answer
     answer_2 = Enum.at(created_answers, 1).answer
     votes_answer_1 = Enum.at(created_answers, 0).votes
     votes_answer_2 = Enum.at(created_answers, 1).votes
 
     assert created_question.question == question
-    assert length(created_question.answer) == 2
+    assert length(created_question.answers) == 2
     assert answers -- [answer_1, answer_2] == []
     assert votes_answer_1 == 0
     assert votes_answer_2 == 0
@@ -28,8 +28,8 @@ defmodule RepositoryTest do
 
   test "create a voter" do
     created_voter = Repository.create_voter()
-    number_of_voters = Voting.Repo.aggregate(Repository.Voter, :count, :id)
-    voter_id = Voting.Repo.one(from x in Repository.Voter, select: x.id)
+    number_of_voters = Voting.Repo.aggregate(Repository.Voters, :count, :id)
+    voter_id = Voting.Repo.one(from x in Repository.Voters, select: x.id)
 
     assert number_of_voters == 1
     assert created_voter.id == voter_id
@@ -39,13 +39,13 @@ defmodule RepositoryTest do
     question = "What is my name?"
     answers = ["John", "Julia"]
     created_question = Repository.create_question(question, answers)
-    answer_id = Enum.at(created_question.answer, 0).id
+    answer_id = Enum.at(created_question.answers, 0).id
     voter_1 = Repository.create_voter()
     voter_2 = Repository.create_voter()
     Repository.vote!(voter_1.id, answer_id)
     Repository.vote!(voter_2.id, answer_id)
 
-    vote_count = Voting.Repo.one(from x in Repository.Answer,
+    vote_count = Voting.Repo.one(from x in Repository.Answers,
                                  where: x.id == ^answer_id,
                                  select: x.votes)
 
@@ -56,13 +56,13 @@ defmodule RepositoryTest do
     question = "What is my name?"
     answers = ["John", "Julia"]
     created_question = Repository.create_question(question, answers)
-    answer_id = Enum.at(created_question.answer, 0).id
+    answer_id = Enum.at(created_question.answers, 0).id
 
     assert_raise Ecto.NoResultsError, fn ->
       Repository.vote!(Ecto.UUID.generate, answer_id)
     end
 
-    vote_count = Voting.Repo.one(from x in Repository.Answer,
+    vote_count = Voting.Repo.one(from x in Repository.Answers,
                                  where: x.id == ^answer_id,
                                  select: x.votes)
 
