@@ -4,8 +4,8 @@ defmodule Repository.Questions do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "questions" do
-    field :question, :string
-    has_many :answers, Repository.Answers
+    field(:question, :string)
+    has_many(:answers, Repository.Answers)
   end
 
   def changeset(question, params \\ %{}) do

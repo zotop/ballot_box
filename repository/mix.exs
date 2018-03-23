@@ -7,6 +7,7 @@ defmodule Repository.MixProject do
       version: "0.1.0",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
+      preferred_cli_env: [espec: :test],
       deps: deps()
     ]
   end
@@ -22,6 +23,7 @@ defmodule Repository.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [{:postgrex, ">= 0.11.1"},
-     {:ecto, "~> 2.0"}]
+     {:ecto, "~> 2.0"},
+     {:espec, "~> 1.5.0", only: :test}]
   end
 end

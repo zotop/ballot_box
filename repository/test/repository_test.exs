@@ -29,7 +29,7 @@ defmodule RepositoryTest do
   test "create a voter" do
     created_voter = Repository.create_voter()
     number_of_voters = Voting.Repo.aggregate(Repository.Voters, :count, :id)
-    voter_id = Voting.Repo.one(from x in Repository.Voters, select: x.id)
+    voter_id = Voting.Repo.one(from(x in Repository.Voters, select: x.id))
 
     assert number_of_voters == 1
     assert created_voter.id == voter_id
@@ -45,9 +45,14 @@ defmodule RepositoryTest do
     Repository.vote!(voter_1.id, answer_id)
     Repository.vote!(voter_2.id, answer_id)
 
-    vote_count = Voting.Repo.one(from x in Repository.Answers,
-                                 where: x.id == ^answer_id,
-                                 select: x.votes)
+    vote_count =
+      Voting.Repo.one(
+        from(
+          x in Repository.Answers,
+          where: x.id == ^answer_id,
+          select: x.votes
+        )
+      )
 
     assert vote_count == 2
   end
@@ -59,12 +64,17 @@ defmodule RepositoryTest do
     answer_id = Enum.at(created_question.answers, 0).id
 
     assert_raise Ecto.NoResultsError, fn ->
-      Repository.vote!(Ecto.UUID.generate, answer_id)
+      Repository.vote!(Ecto.UUID.generate(), answer_id)
     end
 
-    vote_count = Voting.Repo.one(from x in Repository.Answers,
-                                 where: x.id == ^answer_id,
-                                 select: x.votes)
+    vote_count =
+      Voting.Repo.one(
+        from(
+          x in Repository.Answers,
+          where: x.id == ^answer_id,
+          select: x.votes
+        )
+      )
 
     assert vote_count == 0
   end
