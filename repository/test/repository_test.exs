@@ -9,23 +9,6 @@ defmodule RepositoryTest do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Voting.Repo)
   end
 
-  test "should be able to insert a question with answers" do
-    question = "What is my name?"
-    answers = ["John", "Julia"]
-    created_question = Repository.create_question(question, answers)
-    created_answers = created_question.answers
-    answer_1 = Enum.at(created_answers, 0).answer
-    answer_2 = Enum.at(created_answers, 1).answer
-    votes_answer_1 = Enum.at(created_answers, 0).votes
-    votes_answer_2 = Enum.at(created_answers, 1).votes
-
-    assert created_question.question == question
-    assert length(created_question.answers) == 2
-    assert answers -- [answer_1, answer_2] == []
-    assert votes_answer_1 == 0
-    assert votes_answer_2 == 0
-  end
-
   test "create a voter" do
     created_voter = Repository.create_voter()
     number_of_voters = Voting.Repo.aggregate(Repository.Voters, :count, :id)
