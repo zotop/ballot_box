@@ -1,18 +1,16 @@
 defmodule Api do
-  @moduledoc """
-  Documentation for Api.
-  """
 
-  @doc """
-  Hello world.
+  use Plug.Router
 
-  ## Examples
+  plug :match
+  plug :dispatch
 
-      iex> Api.hello
-      :world
-
-  """
-  def hello do
-    :world
+  get "/hello" do
+    send_resp(conn, 200, "world")
   end
+
+  match _ do
+    send_resp(conn, 404, "oops")
+  end
+
 end

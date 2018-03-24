@@ -9,8 +9,7 @@ defmodule Api.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      # Starts a worker by calling: Api.Worker.start_link(arg)
-      # {Api.Worker, arg},
+       Plug.Adapters.Cowboy.child_spec(scheme: :http, plug: Api, options: [port: 4001])
     ]
 
     Logger.info("Started API application")
