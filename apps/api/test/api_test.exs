@@ -4,6 +4,12 @@ defmodule ApiTest do
 
   @opts Api.init([])
 
+  setup do
+    # Explicitly get a connection before each test
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Voting.Repo)
+  end
+
+
   test "returns created question with answers" do
     question = "What is your name?"
     answers = ["John", "Julia"]
