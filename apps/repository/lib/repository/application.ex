@@ -4,6 +4,7 @@ defmodule Repository.Application do
   @moduledoc false
 
   use Application
+  require Logger
 
   def start(_type, _args) do
     import Supervisor.Spec
@@ -11,6 +12,8 @@ defmodule Repository.Application do
     children = [
       Voting.Repo
     ]
+
+    Logger.info("Started Repository application")
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

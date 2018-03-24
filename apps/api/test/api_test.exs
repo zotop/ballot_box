@@ -8,8 +8,8 @@ defmodule ApiTest do
     question = "What is your name?"
     answers = ["John", "Julia"]
     conn = conn(:post, "/question",  %{question: question, answers: answers})
-    conn = put_req_header(conn, "content-type", "application/json")
-    conn = Api.call(conn, @opts)
+    |> put_req_header("content-type", "application/json")
+    |> Api.call(@opts)
 
     assert conn.state == :sent
     assert conn.status == 201
