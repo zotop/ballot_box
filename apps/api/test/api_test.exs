@@ -4,16 +4,15 @@ defmodule ApiTest do
 
   @opts Api.init([])
 
-  test "returns hello world" do
-    # Create a test connection
-    conn = conn(:get, "/hello")
-
-    # Invoke the plug
+  test "returns created question with answers" do
+    question = "What is your name?"
+    answers = ["John", "Julia"]
+    conn = conn(:post, "/question",  %{question: question, answers: answers})
+    conn = put_req_header(conn, "content-type", "application/json")
     conn = Api.call(conn, @opts)
 
-    # Assert the response and status
     assert conn.state == :sent
-    assert conn.status == 200
-    assert conn.resp_body == "world"
+    assert conn.status == 201
+    #assert conn.resp_body == "world"
   end
 end
