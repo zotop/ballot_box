@@ -14,8 +14,8 @@ defmodule Api do
 
   post "/question" do
      json = conn.body_params
-     Repository.create_question(json["question"], json["answers"])
-     send_resp(conn, 201, "")
+     question = Repository.create_question(json["question"], json["answers"])
+     send_resp(conn, 201, Poison.encode!(question))
   end
 
   match _ do

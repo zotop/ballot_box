@@ -2,6 +2,8 @@ defmodule Repository.Questions do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Poison.Encoder, only: [:id, :question, :answers]}
+
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "questions" do
     field(:question, :string)
