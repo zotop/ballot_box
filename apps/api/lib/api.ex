@@ -18,6 +18,14 @@ defmodule Api do
      send_resp(conn, 201, Poison.encode!(question))
   end
 
+  post "/vote" do
+     json = conn.body_params
+     result = Repository.vote(json["voter_id"], json["answer_id"])
+     question_id = Map.get(result, :questions_id)
+     question = Repository.get_question(question_id)
+     send_resp(conn, 200, Poison.encode!(question))
+  end
+
   match _ do
     send_resp(conn, 404, "")
   end

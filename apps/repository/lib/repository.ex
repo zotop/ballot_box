@@ -12,6 +12,11 @@ defmodule Repository do
     Voting.Repo.insert!(question)
   end
 
+  def get_question(question_id) do
+    Voting.Repo.get(Repository.Questions, question_id)
+    |> Voting.Repo.preload([:answers])
+  end
+
   def create_voter do
     Voting.Repo.insert!(%Repository.Voters{})
   end
