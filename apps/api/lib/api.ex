@@ -8,10 +8,6 @@ defmodule Api do
                      json_decoder: Jason
   plug :dispatch
 
-  get "/hello" do
-    send_resp(conn, 200, "world")
-  end
-
   post "/question" do
      json = conn.body_params
      question = Repository.create_question(json["question"], json["answers"])
