@@ -26,10 +26,9 @@ defmodule ApiTest do
   test "can vote for a question" do
     question = "What is your name?"
     answers = ["John"]
-    voter = Repository.create_voter
     question = Repository.create_question(question, answers)
     [answer] = question.answers
-    conn = conn(:post, "/vote",  %{voter_id: voter.id, answer_id: answer.id})
+    conn = conn(:post, "/vote",  %{answer_id: answer.id})
     |> put_req_header("content-type", "application/json")
     |> Api.call(@opts)
     response = Poison.decode!(conn.resp_body)

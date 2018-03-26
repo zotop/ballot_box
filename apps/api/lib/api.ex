@@ -16,7 +16,7 @@ defmodule Api do
 
   post "/vote" do
      json = conn.body_params
-     result = Repository.vote(json["voter_id"], json["answer_id"])
+     result = Repository.vote(json["answer_id"])
      question_id = Map.get(result, :questions_id)
      question = Repository.get_question(question_id)
      send_resp(conn, 200, Poison.encode!(question))
