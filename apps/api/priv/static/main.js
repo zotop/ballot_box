@@ -53,4 +53,19 @@ $(function () {
     $('#question-results-page').css("display", "none");
   }
 
+  function getAllQuestions() {
+    $.ajax({
+      url: '/api/questions',
+      type: 'GET',
+      success: function(response){
+        console.log(response);
+        alert('Success!');
+      },
+      error: function(error){
+        console.log(error);
+        alert("Failure!");
+      }
+    });
+  }
+
 });
