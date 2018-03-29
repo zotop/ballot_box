@@ -26,7 +26,7 @@ defmodule Api.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [{:cowboy, "~> 1.0.0"},
-     {:plug, "~> 1.0"},
+     {:plug, "~> 1.5.0"},
      {:repository, in_umbrella: true}
     ]
   end

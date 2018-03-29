@@ -1,8 +1,8 @@
 $(function () {
 
   hideAllPages();
-  render("/#/");
-
+  //render("/#/");
+  render("/#/questions/new");
   function render(url) {
     var temp = url.split("/#/");
     temp = temp[1];
@@ -35,6 +35,13 @@ $(function () {
   function renderCreateNewQuestionPage(data) {
     var page = $('#create-new-question-page');
     page.css("display", "block");
+    var createQuestionButton = page.find(".create-question-button");
+    createQuestionButton.click(function(e) {
+      e.preventDefault();
+      question = page.find(".question-input").val();
+      answers = collectAnswers(page);
+      createQuestion(question, answers);
+    });
   }
 
   function renderQuestionVotingPage(data) {
@@ -54,6 +61,12 @@ $(function () {
     $('#question-results-page').css("display", "none");
   }
 
+  function collectAnswers(page) {
+    return page.find(".answer-input-text").map(function() {
+      return $( this ).val();
+    }).get();
+  }
+
   function getAllQuestions() {
     $.ajax({
       url: '/questions',
@@ -68,5 +81,23 @@ $(function () {
       }
     });
   }
+
+  function createQuestion(question, answers) {
+    $.ajax({
+      url: '/api/question',
+      type: 'POST',
+      data: JSON.stringify({ question: question, answers: answers }),
+      contentType: "application/json; charset=utf-8",
+      success: function(response){
+        console.log(response);
+        alert('Success!');
+      },
+      error: function(error){
+        console.log(error);
+        alert("Failure!");
+      }
+    });
+  }
+
 
 });

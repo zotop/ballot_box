@@ -1,12 +1,13 @@
 defmodule Api do
   require Repository
   use Plug.Router
+  use Plug.ErrorHandler
 
   plug Plug.Static, at: "/", from: :api
-  plug :match
   plug Plug.Parsers, parsers: [:json],
                      pass:  ["application/json"],
-                     json_decoder: Jason
+                     json_decoder: Poison
+  plug :match
   plug :dispatch
 
   get "/" do
@@ -19,7 +20,8 @@ defmodule Api do
     send_resp(conn, 200, Poison.encode!(questions))
   end
 
-  post "/question" do
+  post("/upload/yo", do: send_resp(conn, 201, "Uploaded\n"))
+  post "/api/question" do
      json = conn.body_params
      question = Repository.create_question(json["question"], json["answers"])
      send_resp(conn, 201, Poison.encode!(question))
@@ -35,6 +37,11 @@ defmodule Api do
 
   match _ do
     send_resp(conn, 404, "")
+  end
+
+  def handle_errors(conn, %{kind: _kind, reason: _reason, stack: _stack}) do
+    IO.inspect(conn)
+    send_resp(conn, conn.status, "Something went wrong")
   end
 
 end

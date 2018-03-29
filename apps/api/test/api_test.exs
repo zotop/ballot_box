@@ -12,7 +12,7 @@ defmodule ApiTest do
   test "returns created question with answers" do
     question = "What is your name?"
     answers = ["John", "Julia"]
-    conn = conn(:post, "/question",  %{question: question, answers: answers})
+    conn = conn(:post, "/api/question",  %{question: question, answers: answers})
     |> put_req_header("content-type", "application/json")
     |> Api.call(@opts)
     response = Poison.decode!(conn.resp_body)

@@ -7,9 +7,12 @@ defmodule Api.Application do
   require Logger
 
   def start(_type, _args) do
+
     # List all child processes to be supervised
     children = [
-       Plug.Adapters.Cowboy.child_spec(scheme: :http, plug: Api, options: [port: 4001])
+       Plug.Adapters.Cowboy.child_spec(scheme: :http, plug: Api,
+        options: [port: 4001]
+       )
     ]
 
     Logger.info("Started API application")
