@@ -39,4 +39,20 @@ defmodule ApiTest do
     assert length(response["answers"]) == 1
     assert updated_answer["votes"] == 1
   end
+
+  test "can retrieve all questions" do
+    answers = ["John", "Michael"]
+    question = "Who are you?"
+    Repository.create_question(question, answers)
+    conn = conn(:get, "/questions")
+    |> put_req_header("content-type", "application/json")
+    |> Api.call(@opts)
+    [retrieved_question] = Poison.decode!(conn.resp_body)
+    retrieved_answers = List.flatten(
+     Enum.map(retrieved_question["answers"], fn answer -> answer["answer"] end)
+    )
+
+    assert retrieved_question["question"] == question
+    assert retrieved_answers -- answers == []
+  end
 end

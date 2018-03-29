@@ -14,6 +14,11 @@ defmodule Api do
     send_file(conn, 200, "priv/static/index.html")
   end
 
+  get "/questions" do
+    questions = Repository.get_all_questions()
+    send_resp(conn, 200, Poison.encode!(questions))
+  end
+
   post "/question" do
      json = conn.body_params
      question = Repository.create_question(json["question"], json["answers"])
