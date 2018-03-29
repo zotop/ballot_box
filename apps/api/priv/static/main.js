@@ -27,6 +27,7 @@ $(function () {
   }
 
   function renderQuestionListPage(data) {
+    getAllQuestions();
     var page = $('#question-list-page');
     page.css("display", "block");
   }
@@ -55,7 +56,7 @@ $(function () {
 
   function getAllQuestions() {
     $.ajax({
-      url: '/api/questions',
+      url: '/questions',
       type: 'GET',
       success: function(response){
         console.log(response);
