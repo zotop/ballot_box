@@ -10,6 +10,13 @@
 
   <div id="question-list-page">
     <h1>List of all questions</h1>
+     <ul class="questions-list">
+        <script id="questions-list-template" type="text/x-handlebars-template">
+          {{#each this}}
+            <li>{{question}}</li>
+          {{/each}}
+        </script>
+     </ul>
   </div>
 
 

@@ -67,6 +67,13 @@ $(function () {
     }).get();
   }
 
+  function generateQuestionList(questions) {
+    var questionsList = $('.questions-list');
+    var templateScript = $("#questions-list-template").html();
+    var template = Handlebars.compile (templateScript);
+    questionsList.append(template(JSON.parse(questions)));
+  }
+
   function getAllQuestions() {
     $.ajax({
       url: '/api/questions',
@@ -74,6 +81,7 @@ $(function () {
       success: function(response){
         console.log(response);
         alert('Success!');
+        generateQuestionList(response);
       },
       error: function(error){
         console.log(error);
