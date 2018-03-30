@@ -1,8 +1,8 @@
 $(function () {
 
   hideAllPages();
-  //render("/#/");
-  render("/#/questions/new");
+  render("/#/");
+  //render("/#/questions/new");
   function render(url) {
     var temp = url.split("/#/");
     temp = temp[1];
