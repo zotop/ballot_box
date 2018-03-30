@@ -69,7 +69,7 @@ $(function () {
 
   function getAllQuestions() {
     $.ajax({
-      url: '/questions',
+      url: '/api/questions',
       type: 'GET',
       success: function(response){
         console.log(response);
@@ -84,7 +84,7 @@ $(function () {
 
   function createQuestion(question, answers) {
     $.ajax({
-      url: '/api/question',
+      url: '/api/questions',
       type: 'POST',
       data: JSON.stringify({ question: question, answers: answers }),
       contentType: "application/json; charset=utf-8",
