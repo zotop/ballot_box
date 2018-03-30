@@ -15,19 +15,18 @@ defmodule Api do
     send_file(conn, 200, "priv/static/index.html")
   end
 
-  get "/questions" do
+  get "/api/questions" do
     questions = Repository.get_all_questions()
     send_resp(conn, 200, Poison.encode!(questions))
   end
 
-  post("/upload/yo", do: send_resp(conn, 201, "Uploaded\n"))
-  post "/api/question" do
+  post "/api/questions" do
      json = conn.body_params
      question = Repository.create_question(json["question"], json["answers"])
      send_resp(conn, 201, Poison.encode!(question))
   end
 
-  post "/vote" do
+  post "/api/vote" do
      json = conn.body_params
      result = Repository.vote(json["answer_id"])
      question_id = Map.get(result, :questions_id)

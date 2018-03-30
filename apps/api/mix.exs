@@ -11,6 +11,7 @@ defmodule Api.MixProject do
       lockfile: "../../mix.lock",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
+      preferred_cli_env: [espec: :test],
       deps: deps()
     ]
   end
@@ -27,6 +28,7 @@ defmodule Api.MixProject do
   defp deps do
     [{:cowboy, "~> 1.0.0"},
      {:plug, "~> 1.5.0"},
+     {:espec, "~> 1.5.0", only: :test},
      {:repository, in_umbrella: true}
     ]
   end
