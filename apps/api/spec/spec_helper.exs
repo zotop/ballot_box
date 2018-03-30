@@ -4,6 +4,6 @@ ESpec.configure fn(config) ->
   end
 
   config.finally fn(_shared) ->
-     Ecto.Adapters.SQL.Sandbox.checkin(Voting.Repo, [])
+    Ecto.Adapters.SQL.Sandbox.checkin(Voting.Repo, [])
   end
 end

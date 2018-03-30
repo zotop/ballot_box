@@ -46,20 +46,24 @@ defmodule ApiSpec do
 
     context "when voting on a question" do
 
-      let! question: Repository.create_question(question(), answers())
+      let! created_question: Repository.create_question(question(), answers())
 
       it "should increase votes for the chosen answer" do
-        [answer_1, answer_2] = question().answers
+        [answer_1, answer_2] = created_question().answers
         conn = conn(:post, "/api/vote",  %{answer_id: answer_1.id})
         |> put_req_header("content-type", "application/json")
         |> Api.call(@opts)
         response = Poison.decode!(conn.resp_body)
-        updated_answers = response["answers"]
+        answers_after_vote = response["answers"]
+        [answer_1_after_vote] = Enum.filter(answers_after_vote,
+                                    fn(answer) -> answer["id"] == answer_1.id end)
+        [answer_2_after_vote] = answers_after_vote -- [answer_1_after_vote]
 
         expect(conn.state).to eq(:sent)
         expect(conn.status).to eq(200)
-        expect(updated_answers).to have_count(1)
-        #assert updated_answer["votes"] == 1
+        expect(answers_after_vote).to have_count(2)
+        expect(answer_1_after_vote["votes"]).to eq(1)
+        expect(answer_2_after_vote["votes"]).to eq(0)
       end
     end
 
