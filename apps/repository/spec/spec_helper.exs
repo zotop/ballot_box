@@ -1,4 +1,7 @@
 ESpec.configure fn(config) ->
+
+  Ecto.Adapters.SQL.Sandbox.mode(Voting.Repo, :manual)
+
   config.before fn(tags) ->
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Voting.Repo)
   end

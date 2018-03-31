@@ -1,5 +1,9 @@
 use Mix.Config
 
 config :repository, Voting.Repo,
-        pool: Ecto.Adapters.SQL.Sandbox,
-        ownership_timeout: 60_000
+  adapter: Ecto.Adapters.Postgres,
+  database: "repository_test_repo",
+  hostname: "localhost",
+  username: "admin",
+  password: "",
+  pool: Ecto.Adapters.SQL.Sandbox
