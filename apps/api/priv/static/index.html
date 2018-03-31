@@ -13,7 +13,7 @@
      <ul class="questions-list">
         <script id="questions-list-template" type="text/x-handlebars-template">
           {{#each this}}
-            <li>{{question}}</li>
+            <li><a question_id="{{id}}">{{question}}</a></li>
           {{/each}}
         </script>
      </ul>

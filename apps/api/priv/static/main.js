@@ -2,11 +2,13 @@ $(function () {
 
   hideAllPages();
   render("/#/");
-  //render("/#/questions/new");
-  function render(url) {
-    var temp = url.split("/#/");
-    temp = temp[1];
 
+  function render(url) {
+    var temp = url.split("/#/")[1];
+    var path = temp.split('/');
+
+    console.log("temp2", temp);
+    console.log("path", path);
     var map = {
 
       '': function() {
@@ -14,15 +16,19 @@ $(function () {
               renderQuestionListPage();
           },
 
-      'questions/new': function() {
+      'questions': function() {
               hideAllPages();
-              renderCreateNewQuestionPage();
+              if (path[1] == "new") {
+                renderCreateNewQuestionPage();
+              } else {
+                renderQuestionVotingPage(path[1]);
+              }
           }
 
     };
 
-    if(map[temp]){
-      map[temp]();
+    if(map[path[0]]){
+      map[path[0]]();
     }
   }
 
@@ -44,9 +50,10 @@ $(function () {
     });
   }
 
-  function renderQuestionVotingPage(data) {
+  function renderQuestionVotingPage(question_id) {
     var page = $('#question-voting-page');
     page.css("display", "block");
+    console.log("YEAH", question_id);
   }
 
   function renderQuestionResultsPage(data) {
@@ -72,6 +79,10 @@ $(function () {
     var templateScript = $("#questions-list-template").html();
     var template = Handlebars.compile (templateScript);
     questionsList.append(template(JSON.parse(questions)));
+    questionsList.find("a[question_id]").click(function() {
+      question_id = $(this).attr("question_id");
+      render("/#/questions/" + question_id);
+    });
   }
 
   function getAllQuestions() {
