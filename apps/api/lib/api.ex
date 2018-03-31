@@ -20,6 +20,12 @@ defmodule Api do
     send_resp(conn, 200, Poison.encode!(questions))
   end
 
+  get "/api/questions/:question_id" do
+    question_id = conn.params["question_id"]
+    questions = Repository.get_question(question_id)
+    send_resp(conn, 200, Poison.encode!(questions))
+  end
+
   post "/api/questions" do
      json = conn.body_params
      question = Repository.create_question(json["question"], json["answers"])

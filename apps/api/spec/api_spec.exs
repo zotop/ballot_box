@@ -44,12 +44,31 @@ defmodule ApiSpec do
 
     end
 
+    context "when retrieving one question" do
+
+      let! created_question: Repository.create_question(question(), answers())
+
+      it "should retrieve it with its answers" do
+        conn = conn(:get, "/api/questions/" <> created_question().id)
+        |> put_req_header("content-type", "application/json")
+        |> Api.call(@opts)
+        retrieved_question = Poison.decode!(conn.resp_body)
+        retrieved_answers = List.flatten(
+         Enum.map(retrieved_question["answers"], fn answer -> answer["answer"] end)
+        )
+
+        expect(retrieved_question["question"]).to eq(question())
+        expect(retrieved_answers -- answers()).to eq([])
+      end
+
+    end
+
     context "when voting on a question" do
 
       let! created_question: Repository.create_question(question(), answers())
 
       it "should increase votes for the chosen answer" do
-        [answer_1, answer_2] = created_question().answers
+        [answer_1, _] = created_question().answers
         conn = conn(:post, "/api/vote",  %{answer_id: answer_1.id})
         |> put_req_header("content-type", "application/json")
         |> Api.call(@opts)
