@@ -48,7 +48,7 @@ defmodule RepositorySpec do
 
   end
 
-  context "when retrieving all questions" do
+  context "when retrieving questions" do
 
     let question_1: "What is my first name?"
     let answers_1: ["John", "Julia"]
@@ -57,16 +57,33 @@ defmodule RepositorySpec do
     let! created_question_1: Repository.create_question(question_1(), answers_1())
     let! created_question_2: Repository.create_question(question_2(), answers_2())
 
-    it "should retrieve them with their answers" do
-      all_questions = Repository.get_all_questions
-      questions = Enum.map(all_questions, fn question -> question.question end)
-      answers = List.flatten(
-        Enum.map(all_questions, fn question -> question.answers end)
-      )
-      answers = Enum.map(answers, fn answer -> answer.answer end)
+    context "when retrieving all questions" do
 
-      expect questions |> to contain_exactly([question_2, question_1])
-      expect answers |> to contain_exactly(answers_1 ++ answers_2)
+      it "should retrieve them with their answers" do
+        all_questions = Repository.get_all_questions
+        questions = Enum.map(all_questions, fn question -> question.question end)
+        answers = List.flatten(
+          Enum.map(all_questions, fn question -> question.answers end)
+        )
+        answers = Enum.map(answers, fn answer -> answer.answer end)
+
+        expect questions |> to contain_exactly([question_2, question_1])
+        expect answers |> to contain_exactly(answers_1 ++ answers_2)
+      end
+
+    end
+
+    context "when retrieving one question" do
+
+      it "should retrieve it with its answers" do
+        retrieved_question = Repository.get_question(created_question_2.id)
+        retrieved_answers = Enum.map(retrieved_question.answers, fn answer -> answer.answer end)
+
+        expect(retrieved_question.id).to eq(created_question_2.id)
+        expect(retrieved_question.question).to eq(created_question_2.question)
+        expect(retrieved_answers -- answers_2).to eq([])
+      end
+
     end
 
   end
