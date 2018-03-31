@@ -37,6 +37,14 @@
 
   <div id="question-voting-page">
     <h1>Page for voting on a question's possible answers</h1>
+    <script id="question-template" type="text/x-handlebars-template">
+      <h3>{{question}}</h3>
+      <ul>
+        {{#each answers}}
+          <li>{{answer}}</li>
+        {{/each}}
+      </ul>
+    </script>
   </div>
 
 

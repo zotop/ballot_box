@@ -53,7 +53,12 @@ $(function () {
   function renderQuestionVotingPage(question_id) {
     var page = $('#question-voting-page');
     page.css("display", "block");
-    console.log("YEAH", question_id);
+    var templateScript = $("#question-template").html();
+    var template = Handlebars.compile (templateScript);
+    getQuestion(question_id).then(function(question){
+        page.append(template(JSON.parse(question)));
+    });
+
   }
 
   function renderQuestionResultsPage(data) {
@@ -117,6 +122,14 @@ $(function () {
       }
     });
   }
+
+  function getQuestion(question_id) {
+    return $.ajax({
+      url: '/api/questions/' + question_id,
+      type: 'GET'
+    });
+  }
+
 
 
 });
