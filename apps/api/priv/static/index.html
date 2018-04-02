@@ -41,9 +41,10 @@
       <h3>{{question}}</h3>
       <ul>
         {{#each answers}}
-          <li>{{answer}}</li>
+          <li>{{answer}}<input type="radio" name="selected-answer" value={{id}}></li>
         {{/each}}
       </ul>
+      <button class="vote-button">Vote</button>
     </script>
   </div>
 
