@@ -69,7 +69,7 @@ defmodule ApiSpec do
 
       it "should increase votes for the chosen answer" do
         [answer_1, _] = created_question().answers
-        conn = conn(:post, "/api/vote",  %{answer_id: answer_1.id})
+        conn = conn(:post, "/api/questions/vote",  %{answer_id: answer_1.id})
         |> put_req_header("content-type", "application/json")
         |> Api.call(@opts)
         response = Poison.decode!(conn.resp_body)

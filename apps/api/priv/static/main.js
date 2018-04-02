@@ -2,7 +2,6 @@ $(function () {
 
   hideAllPages();
   render("/#/");
-
   function render(url) {
     var temp = url.split("/#/")[1];
     var path = temp.split('/');
@@ -19,9 +18,11 @@ $(function () {
       'questions': function() {
               hideAllPages();
               if (path[1] == "new") {
-                renderCreateNewQuestionPage();
+                  renderCreateNewQuestionPage();
+              } else if (path[2] == "results") {
+                  renderQuestionResultsPage(path[1]);
               } else {
-                renderQuestionVotingPage(path[1]);
+                  renderQuestionVotingPage(path[1]);
               }
           }
 
@@ -57,11 +58,17 @@ $(function () {
     var template = Handlebars.compile (templateScript);
     getQuestion(question_id).then(function(question){
         page.append(template(JSON.parse(question)));
+        page.find(".vote-button").click(function() {
+          var checkedAnswer = page.find("input[type='radio']:checked");
+          voteForAnswer(checkedAnswer.val()).then(function() {
+            render("/#/questions/" + question_id + "/results");
+          });
+        });
     });
 
   }
 
-  function renderQuestionResultsPage(data) {
+  function renderQuestionResultsPage() {
     var page = $('#question-results-page');
     page.css("display", "block");
   }
@@ -130,6 +137,13 @@ $(function () {
     });
   }
 
-
+  function voteForAnswer(answer_id) {
+    return $.ajax({
+      url: '/api/questions/vote',
+      type: 'POST',
+      data: JSON.stringify({ answer_id: answer_id }),
+      contentType: "application/json; charset=utf-8"
+    });
+  }
 
 });

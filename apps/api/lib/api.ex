@@ -32,7 +32,7 @@ defmodule Api do
      send_resp(conn, 201, Poison.encode!(question))
   end
 
-  post "/api/vote" do
+  post "/api/questions/vote" do
      json = conn.body_params
      result = Repository.vote(json["answer_id"])
      question_id = Map.get(result, :questions_id)
