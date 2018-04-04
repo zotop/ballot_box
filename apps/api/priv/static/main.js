@@ -117,7 +117,6 @@ $(function () {
       type: 'GET',
       success: function(response){
         console.log(response);
-        alert('Success!');
         generateQuestionList(response);
       },
       error: function(error){
