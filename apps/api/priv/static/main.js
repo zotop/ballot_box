@@ -1,7 +1,10 @@
 $(function () {
 
+  var votingResultsChart = null;
+
   hideAllPages();
   render("/#/");
+
   function render(url) {
     var temp = url.split("/#/")[1];
     var path = temp.split('/');
@@ -75,7 +78,10 @@ $(function () {
     getQuestion(question_id).then(function(question){
       question = JSON.parse(question);
       page.find(".question-title").text(question.question);
-      var skillsChart = new Chart(context, barChartData(question.answers));
+      if(votingResultsChart != null) {
+        votingResultsChart.destroy();
+      }
+      votingResultsChart = new Chart(context, barChartData(question.answers));
     });
 
 
@@ -162,13 +168,18 @@ $(function () {
       type: 'horizontalBar',
       data: {
         labels: labels,
-        datasets: [{
-          data: [12, 19, 3, 17, 28, 24, 7]
-        }]
+        datasets: [{data: votes}]
       },
       options: {
          responsive: true,
-         maintainAspectRatio: false
+         maintainAspectRatio: false,
+         scales: {
+            xAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
       }
     }
     return data;
