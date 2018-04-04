@@ -68,11 +68,17 @@ $(function () {
 
   }
 
-  function renderQuestionResultsPage() {
+  function renderQuestionResultsPage(question_id) {
     var page = $('#question-results-page');
     page.css("display", "block");
     var context = page.find('#question-voting-results')[0].getContext('2d');
-    var skillsChart = new Chart(context, pieData());
+    getQuestion(question_id).then(function(question){
+      question = JSON.parse(question);
+      page.find(".question-title").text(question.question);
+      var skillsChart = new Chart(context, barChartData(question.answers));
+    });
+
+
   }
 
   function hideAllPages() {
@@ -149,11 +155,13 @@ $(function () {
   }
 
 
-  function pieData() {
+  function barChartData(answers) {
+    var labels = answers.map(function(answer) {return answer.answer;});
+    var votes = answers.map(function(answer) {return answer.votes;});
     var data = {
       type: 'horizontalBar',
       data: {
-        labels: ["Answer 1", "Answer 2", "Answer 3", "T", "F", "S", "S"],
+        labels: labels,
         datasets: [{
           data: [12, 19, 3, 17, 28, 24, 7]
         }]
