@@ -5,8 +5,15 @@ $(function () {
   hideAllPages();
   render("/#/");
 
+  $(window).on('hashchange', function(){
+    console.log("HASH", decodeURI(window.location.hash));
+    console.log("YO");
+    render(decodeURI(window.location.hash));
+  });
+
   function render(url) {
-    var temp = url.split("/#/")[1];
+    console.log("SPLIT", url);
+    var temp = url.split("#/")[1];
     var path = temp.split('/');
 
     console.log("temp2", temp);
@@ -28,7 +35,6 @@ $(function () {
                   renderQuestionVotingPage(path[1]);
               }
           }
-
     };
 
     if(map[path[0]]){
@@ -64,7 +70,9 @@ $(function () {
         page.find(".vote-button").click(function() {
           var checkedAnswer = page.find("input[type='radio']:checked");
           voteForAnswer(checkedAnswer.val()).then(function() {
-            render("/#/questions/" + question_id + "/results");
+            console.log("VOTED");
+            window.location.hash = "/questions/" + question_id + "/results";
+            //render("/#/questions/" + question_id + "/results");
           });
         });
     });
@@ -83,8 +91,6 @@ $(function () {
       }
       votingResultsChart = new Chart(context, barChartData(question.answers));
     });
-
-
   }
 
   function hideAllPages() {
@@ -107,7 +113,7 @@ $(function () {
     questionsList.append(template(JSON.parse(questions)));
     questionsList.find("a[question_id]").click(function() {
       question_id = $(this).attr("question_id");
-      render("/#/questions/" + question_id);
+      window.location.hash = "/questions/" + question_id;
     });
   }
 
