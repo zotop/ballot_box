@@ -118,7 +118,7 @@ $(function () {
     var questionsList = $('.questions-list');
     var templateScript = $("#questions-list-template").html();
     var template = Handlebars.compile (templateScript);
-    //questionsList.empty();
+    questionsList.find("li").remove();
     questionsList.append(template(JSON.parse(questions)));
     questionsList.find("a[question_id]").click(function() {
       question_id = $(this).attr("question_id");
