@@ -45,6 +45,10 @@ $(function () {
   function renderQuestionListPage(data) {
     var page = $('#question-list-page');
     page.css("display", "block");
+    page.find(".new-question-button").click(function(e) {
+      e.preventDefault();
+      window.location.hash = "/questions/new";
+    });
     getAllQuestions();
   }
 
@@ -72,9 +76,7 @@ $(function () {
         templateArea.find(".vote-button").click(function() {
           var checkedAnswer = page.find("input[type='radio']:checked");
           voteForAnswer(checkedAnswer.val()).then(function() {
-            console.log("VOTED");
             window.location.hash = "/questions/" + question_id + "/results";
-            //render("/#/questions/" + question_id + "/results");
           });
         });
     });
@@ -112,7 +114,7 @@ $(function () {
     var questionsList = $('.questions-list');
     var templateScript = $("#questions-list-template").html();
     var template = Handlebars.compile (templateScript);
-    questionsList.empty()
+    questionsList.empty();
     questionsList.append(template(JSON.parse(questions)));
     questionsList.find("a[question_id]").click(function() {
       question_id = $(this).attr("question_id");
