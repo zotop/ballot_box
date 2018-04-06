@@ -38,15 +38,17 @@
 
   <div id="question-voting-page">
     <h1>Page for voting on a question's possible answers</h1>
-    <script id="question-template" type="text/x-handlebars-template">
-      <h3>{{question}}</h3>
-      <ul>
-        {{#each answers}}
-          <li>{{answer}}<input type="radio" name="selected-answer" value={{id}}></li>
-        {{/each}}
-      </ul>
-      <button class="vote-button">Vote</button>
-    </script>
+    <div class="template-area">
+      <script id="question-template" type="text/x-handlebars-template">
+        <h3>{{question}}</h3>
+        <ul>
+          {{#each answers}}
+            <li>{{answer}}<input type="radio" name="selected-answer" value={{id}}></li>
+          {{/each}}
+        </ul>
+        <button class="vote-button">Vote</button>
+      </script>
+  </div>
   </div>
 
 

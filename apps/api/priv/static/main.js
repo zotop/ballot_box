@@ -65,9 +65,11 @@ $(function () {
     page.css("display", "block");
     var templateScript = $("#question-template").html();
     var template = Handlebars.compile (templateScript);
+    var templateArea = page.find('.template-area');
     getQuestion(question_id).then(function(question){
-        page.append(template(JSON.parse(question)));
-        page.find(".vote-button").click(function() {
+        templateArea.empty();
+        templateArea.append(template(JSON.parse(question)));
+        templateArea.find(".vote-button").click(function() {
           var checkedAnswer = page.find("input[type='radio']:checked");
           voteForAnswer(checkedAnswer.val()).then(function() {
             console.log("VOTED");
