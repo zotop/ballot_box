@@ -6,9 +6,11 @@ $(function () {
   render("/#/");
 
   $(window).on('hashchange', function(){
-    console.log("HASH", decodeURI(window.location.hash));
-    console.log("YO");
-    render(decodeURI(window.location.hash));
+    uri = decodeURI(window.location.hash);
+    if (uri == '') {
+      uri = '#/';
+    }
+    render(uri);
   });
 
   function render(url) {
@@ -22,6 +24,7 @@ $(function () {
 
       '': function() {
               hideAllPages();
+              console.log("LISTLIST");
               renderQuestionListPage();
           },
 
@@ -42,7 +45,7 @@ $(function () {
     }
   }
 
-  function renderQuestionListPage(data) {
+  function renderQuestionListPage() {
     var page = $('#question-list-page');
     page.css("display", "block");
     page.find(".new-question-button").click(function(e) {
@@ -56,6 +59,7 @@ $(function () {
     var page = $('#create-new-question-page');
     page.css("display", "block");
     var createQuestionButton = page.find(".create-question-button");
+    createQuestionButton.unbind( "click" );
     createQuestionButton.click(function(e) {
       e.preventDefault();
       question = page.find(".question-input").val();
@@ -114,7 +118,7 @@ $(function () {
     var questionsList = $('.questions-list');
     var templateScript = $("#questions-list-template").html();
     var template = Handlebars.compile (templateScript);
-    questionsList.empty();
+    //questionsList.empty();
     questionsList.append(template(JSON.parse(questions)));
     questionsList.find("a[question_id]").click(function() {
       question_id = $(this).attr("question_id");
