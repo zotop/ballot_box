@@ -43,9 +43,9 @@ $(function () {
   }
 
   function renderQuestionListPage(data) {
-    getAllQuestions();
     var page = $('#question-list-page');
     page.css("display", "block");
+    getAllQuestions();
   }
 
   function renderCreateNewQuestionPage(data) {
@@ -112,6 +112,7 @@ $(function () {
     var questionsList = $('.questions-list');
     var templateScript = $("#questions-list-template").html();
     var template = Handlebars.compile (templateScript);
+    questionsList.empty()
     questionsList.append(template(JSON.parse(questions)));
     questionsList.find("a[question_id]").click(function() {
       question_id = $(this).attr("question_id");
