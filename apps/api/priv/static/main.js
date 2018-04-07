@@ -14,22 +14,15 @@ $(function () {
   });
 
   function render(url) {
-    console.log("SPLIT", url);
     var temp = url.split("#/")[1];
     var path = temp.split('/');
-
-    console.log("temp2", temp);
-    console.log("path", path);
     var map = {
 
       '': function() {
-              hideAllPages();
-              console.log("LISTLIST");
               renderQuestionListPage();
           },
 
       'questions': function() {
-              hideAllPages();
               if (path[1] == "new") {
                   renderCreateNewQuestionPage();
               } else if (path[2] == "results") {
@@ -41,6 +34,7 @@ $(function () {
     };
 
     if(map[path[0]]){
+      hideAllPages();
       map[path[0]]();
     }
   }
