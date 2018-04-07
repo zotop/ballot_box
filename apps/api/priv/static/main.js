@@ -71,8 +71,7 @@ $(function () {
     var template = Handlebars.compile (templateScript);
     var templateArea = page.find('.template-area');
     getQuestion(question_id).then(function(question){
-        templateArea.empty();
-        templateArea.append(template(JSON.parse(question)));
+        templateArea.html(template(JSON.parse(question)));
         templateArea.find(".vote-button").click(function() {
           var checkedAnswer = page.find("input[type='radio']:checked");
           voteForAnswer(checkedAnswer.val()).then(function() {

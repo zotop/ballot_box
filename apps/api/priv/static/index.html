@@ -38,19 +38,18 @@
 
   <div id="question-voting-page">
     <h1>Page for voting on a question's possible answers</h1>
-    <div class="template-area">
-      <script id="question-template" type="text/x-handlebars-template">
-        <h3>{{question}}</h3>
-        <ul>
-          {{#each answers}}
-            <li>{{answer}}<input type="radio" name="selected-answer" value={{id}}></li>
-          {{/each}}
-        </ul>
-        <button class="vote-button">Vote</button>
-      </script>
-  </div>
+    <div class="template-area"></div>
   </div>
 
+  <script id="question-template" type="text/x-handlebars-template">
+    <h3>{{question}}</h3>
+    <ul>
+      {{#each answers}}
+        <li>{{answer}}<input type="radio" name="selected-answer" value={{id}}></li>
+      {{/each}}
+    </ul>
+    <button class="vote-button">Vote</button>
+  </script>
 
   <div id="question-results-page" style="width: 500px; height: 500px;">
     <h1>Page to view question voting results</h1>
