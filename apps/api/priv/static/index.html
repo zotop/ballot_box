@@ -11,16 +11,15 @@
 
   <div id="question-list-page">
     <h1>List of all questions</h1>
-    <button class="new-question-button">New Question</button> 
-     <ul class="questions-list">
-        <script id="questions-list-template" type="text/x-handlebars-template">
-          {{#each this}}
-            <li><a question_id="{{id}}">{{question}}</a></li>
-          {{/each}}
-        </script>
-     </ul>
+    <button class="new-question-button">New Question</button>
+     <ul class="questions-list"></ul>
   </div>
 
+  <script id="questions-list-template" type="text/x-handlebars-template">
+    {{#each this}}
+      <li><a question_id="{{id}}">{{question}}</a></li>
+    {{/each}}
+  </script>
 
   <div id="create-new-question-page">
     <h1>Page to create a new question</h1>

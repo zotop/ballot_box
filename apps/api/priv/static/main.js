@@ -111,11 +111,10 @@ $(function () {
   }
 
   function generateQuestionList(questions) {
-    var questionsList = $('.questions-list');
     var templateScript = $("#questions-list-template").html();
     var template = Handlebars.compile (templateScript);
-    questionsList.find("li").remove();
-    questionsList.append(template(JSON.parse(questions)));
+    var questionsList = $('.questions-list');
+    questionsList.html(template(JSON.parse(questions)));
     questionsList.find("a[question_id]").click(function() {
       question_id = $(this).attr("question_id");
       window.location.hash = "/questions/" + question_id;
@@ -123,7 +122,7 @@ $(function () {
   }
 
   ////// API CALLS /////////
-  
+
   function getAllQuestions() {
     return $.ajax({
       url: '/api/questions',
