@@ -130,19 +130,11 @@ $(function () {
   }
 
   function createQuestion(question, answers) {
-    $.ajax({
+    return $.ajax({
       url: '/api/questions',
       type: 'POST',
       data: JSON.stringify({ question: question, answers: answers }),
       contentType: "application/json; charset=utf-8",
-      success: function(response){
-        console.log(response);
-        alert('Success!');
-      },
-      error: function(error){
-        console.log(error);
-        alert("Failure!");
-      }
     });
   }
 
