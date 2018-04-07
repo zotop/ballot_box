@@ -42,8 +42,7 @@ $(function () {
   function renderQuestionListPage() {
     var page = $('#question-list-page');
     page.css("display", "block");
-    page.find(".new-question-button").click(function(e) {
-      e.preventDefault();
+    page.find(".new-question-button").click(function() {
       window.location.hash = "/questions/new";
     });
     getAllQuestions().then(function(questions) {
