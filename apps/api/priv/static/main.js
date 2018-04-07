@@ -57,7 +57,6 @@ $(function () {
     var createQuestionButton = page.find(".create-question-button");
     createQuestionButton.unbind( "click" );
     createQuestionButton.click(function(e) {
-      e.preventDefault();
       question = page.find(".question-input").val();
       answers = collectAnswers(page);
       createQuestion(question, answers);
