@@ -50,7 +50,7 @@ $(function () {
     });
   }
 
-  function renderCreateNewQuestionPage(data) {
+  function renderCreateNewQuestionPage() {
     var page = $('#create-new-question-page');
     page.css("display", "block");
     var createQuestionButton = page.find(".create-question-button");
