@@ -46,7 +46,9 @@ $(function () {
       e.preventDefault();
       window.location.hash = "/questions/new";
     });
-    getAllQuestions();
+    getAllQuestions().then(function(questions) {
+      generateQuestionList(questions);
+    });
   }
 
   function renderCreateNewQuestionPage(data) {
@@ -120,18 +122,12 @@ $(function () {
     });
   }
 
+  ////// API CALLS /////////
+  
   function getAllQuestions() {
-    $.ajax({
+    return $.ajax({
       url: '/api/questions',
-      type: 'GET',
-      success: function(response){
-        console.log(response);
-        generateQuestionList(response);
-      },
-      error: function(error){
-        console.log(error);
-        alert("Failure!");
-      }
+      type: 'GET'
     });
   }
 
