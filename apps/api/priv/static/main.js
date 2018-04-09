@@ -84,7 +84,7 @@ $(function () {
     getQuestion(question_id).then(function(question){
       question = JSON.parse(question);
       page.find(".question-title").text(question.question);
-      new Chart(context, barChartData(question.answers));
+      new Chart(context, barChartSetup(question.answers));
     });
   }
 
@@ -147,7 +147,7 @@ $(function () {
   }
 
 
-  function barChartData(answers) {
+  function barChartSetup(answers) {
     var labels = answers.map(function(answer) {return answer.answer;});
     var votes = answers.map(function(answer) {return answer.votes;});
     var data = {
