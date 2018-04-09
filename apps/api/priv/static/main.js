@@ -52,20 +52,8 @@ $(function () {
   function renderCreateNewQuestionPage() {
     var page = $('#create-new-question-page');
     page.css("display", "block");
-    var createQuestionButton = page.find(".create-question-button");
-    createQuestionButton.unbind( "click" );
-    createQuestionButton.click(function() {
-      question = page.find(".question-input").val();
-      answers = collectAnswers(page);
-      createQuestion(question, answers);
-    });
-    var addAnswerButton = page.find(".add-answer-button");
-    addAnswerButton.unbind( "click" );
-    addAnswerButton.click(function() {
-      var answersList = page.find(".answers-list");
-      answersList.append("<input type='text' class='answer-input-text'><br>");
-    });
-
+    createQuestionButtonClick(page);
+    addAnswerButtonClick(page);
   }
 
   function renderQuestionVotingPage(question_id) {
@@ -111,6 +99,26 @@ $(function () {
       return $(this).val();
     }).get();
   }
+
+  function createQuestionButtonClick(page) {
+    var createQuestionButton = page.find(".create-question-button");
+    createQuestionButton.unbind( "click" );
+    createQuestionButton.click(function() {
+      question = page.find(".question-input").val();
+      answers = collectAnswers(page);
+      createQuestion(question, answers);
+    });
+  }
+
+  function addAnswerButtonClick(page) {
+    var addAnswerButton = page.find(".add-answer-button");
+    addAnswerButton.unbind( "click" );
+    addAnswerButton.click(function() {
+      var answersList = page.find(".answers-list");
+      answersList.append("<input type='text' class='answer-input-text'><br>");
+    });
+  }
+
 
   function generateQuestionList(questions) {
     var templateScript = $("#questions-list-template").html();
