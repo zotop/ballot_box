@@ -1,5 +1,6 @@
 $(function () {
 
+  var barChart = null;
   hideAllPages();
   render("/#/");
 
@@ -84,7 +85,10 @@ $(function () {
     getQuestion(question_id).then(function(question){
       question = JSON.parse(question);
       page.find(".question-title").text(question.question);
-      new Chart(context, barChartSetup(question.answers));
+      if(barChart != null) {
+        barChart.destroy();
+      }
+      barChart = new Chart(context, barChartSetup(question.answers));
     });
   }
 
