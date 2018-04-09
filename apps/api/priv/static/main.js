@@ -54,11 +54,18 @@ $(function () {
     page.css("display", "block");
     var createQuestionButton = page.find(".create-question-button");
     createQuestionButton.unbind( "click" );
-    createQuestionButton.click(function(e) {
+    createQuestionButton.click(function() {
       question = page.find(".question-input").val();
       answers = collectAnswers(page);
       createQuestion(question, answers);
     });
+    var addAnswerButton = page.find(".add-answer-button");
+    addAnswerButton.unbind( "click" );
+    addAnswerButton.click(function() {
+      var answersList = page.find(".answers-list");
+      answersList.append("<input type='text' class='answer-input-text'><br>");
+    });
+
   }
 
   function renderQuestionVotingPage(question_id) {
