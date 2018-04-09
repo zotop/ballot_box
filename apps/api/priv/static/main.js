@@ -1,7 +1,5 @@
 $(function () {
 
-  var votingResultsChart = null;
-
   hideAllPages();
   render("/#/");
 
@@ -77,7 +75,6 @@ $(function () {
           });
         });
     });
-
   }
 
   function renderQuestionResultsPage(question_id) {
@@ -87,10 +84,7 @@ $(function () {
     getQuestion(question_id).then(function(question){
       question = JSON.parse(question);
       page.find(".question-title").text(question.question);
-      if(votingResultsChart != null) {
-        votingResultsChart.destroy();
-      }
-      votingResultsChart = new Chart(context, barChartData(question.answers));
+      new Chart(context, barChartData(question.answers));
     });
   }
 
@@ -103,7 +97,7 @@ $(function () {
 
   function collectAnswers(page) {
     return page.find(".answer-input-text").map(function() {
-      return $( this ).val();
+      return $(this).val();
     }).get();
   }
 
