@@ -146,7 +146,7 @@ $(function () {
     });
   }
 
-
+  ///// BAR CHART CONFIGURATION /////
   function barChartSetup(answers) {
     var labels = answers.map(function(answer) {return answer.answer;});
     var votes = answers.map(function(answer) {return answer.votes;});
