@@ -16,12 +16,21 @@
   <div id="question-list-page" class="container">
     <h1>List of all questions</h1>
     <button class="new-question-button">New Question</button>
-     <ul class="questions-list"></ul>
+    <table class="table table-hover questions-list">
+      <thead>
+        <tr>
+          <th scope="col">Question</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
 
   <script id="questions-list-template" type="text/x-handlebars-template">
     {{#each this}}
-      <li><a question_id="{{id}}">{{question}}</a></li>
+      <tr>
+        <td scope="row"><a question_id="{{id}}">{{question}}</a></td>
+      </tr>
     {{/each}}
   </script>
 

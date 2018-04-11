@@ -119,12 +119,11 @@ $(function () {
     });
   }
 
-
   function generateQuestionList(questions) {
     var templateScript = $("#questions-list-template").html();
     var template = Handlebars.compile (templateScript);
     var questionsList = $('.questions-list');
-    questionsList.html(template(JSON.parse(questions)));
+    questionsList.find("tbody").html(template(JSON.parse(questions)));
     questionsList.find("a[question_id]").click(function() {
       question_id = $(this).attr("question_id");
       window.location.hash = "/questions/" + question_id;
