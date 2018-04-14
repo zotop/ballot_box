@@ -73,7 +73,7 @@
         <img src="/img/icons8-ask-question-100.png">
       </div>
     </div>
-    <div class="template-area"></div>
+    <div class="template-area" style="margin-top:30px;"></div>
   </div>
 
   <script id="question-template" type="text/x-handlebars-template">
@@ -82,12 +82,24 @@
         <p class="lead text-muted text-center">{{question}}</p>
       </div>
     </div>
-    <ul>
-      {{#each answers}}
-        <li>{{answer}}<input type="radio" name="selected-answer" value={{id}}></li>
-      {{/each}}
-    </ul>
-    <button class="vote-button">Vote</button>
+    <div class="row">
+      <div class="mx-auto">
+        {{#each answers}}
+          <div class="radio">
+            <label><input type="radio" name="selected-answer" value={{id}}>
+              {{answer}}
+            </label>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+    <div class="row" style="margin-top:20px;">
+      <div class="mx-auto">
+        <button type="button" class="vote-button btn btn-primary">
+          Submit Vote
+        </button>
+      </div>
+    </div>
   </script>
 
   <div id="question-results-page" style="width: 500px; height: 500px;">
