@@ -38,23 +38,16 @@
     </div>
     <div class="row" style="margin-top:50px;">
       <div class="mx-auto col-6">
-        <table class="table table-hover questions-list">
-          <thead>
-            <tr>
-              <th scope="col">Question</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+        <div class="questions-list list-group" style="cursor:pointer;"></div>
       </div>
     </div>
   </div>
 
   <script id="questions-list-template" type="text/x-handlebars-template">
     {{#each this}}
-      <tr>
-        <td scope="row"><a question_id="{{id}}">{{question}}</a></td>
-      </tr>
+      <a question_id="{{id}}" class="list-group-item list-group-item-action">
+        {{question}}
+      </a>
     {{/each}}
   </script>
 
