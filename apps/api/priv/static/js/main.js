@@ -115,7 +115,7 @@ $(function () {
     addAnswerButton.unbind( "click" );
     addAnswerButton.click(function() {
       var answersList = page.find(".answers-list");
-      answersList.append("<input type='text' class='answer-input-text'><br>");
+      answersList.append("<input type='text'class='answer-input-text form-control' placeholder='answer'><br>");
     });
   }
 

@@ -51,21 +51,37 @@
     {{/each}}
   </script>
 
-  <div id="create-new-question-page">
-    <h1>Page to create a new question</h1>
-    <div>
-      <span>Question:</span>
-      <input type="text" class="question-input">
+  <div id="create-new-question-page" class="container">
+    <div class="row" style="margin-top:50px;">
+      <div class="mx-auto">
+        <img src="/img/icons8-add-100.png">
+      </div>
     </div>
-    <div class="answers-list">
-      <span>Answers:</span><br>
-      <input type="text" class="answer-input-text"><br>
-      <input type="text" class="answer-input-text"><br>
+    <div class="row" style="margin-top:30px;">
+      <div class="mx-auto col-6">
+        <form>
+          <div class="form-group">
+            <label for="formGroupExampleInput">Question</label>
+            <input type="text" class="question-input form-control" placeholder="Question text">
+          </div>
+          <div class="form-group">
+            <label>Answers</label>
+            <div class="answers-list">
+              <input type="text" class="answer-input-text form-control" placeholder="answer"><br>
+              <input type="text" class="answer-input-text form-control" placeholder="answer"><br>
+            </div>
+            <button type="button" class="add-answer-button btn btn-outline-primary btn-lg btn-block">
+              Add Answer
+            </button>
+            <hr>
+            <button class="create-question-button btn btn-primary btn-lg btn-block">
+              Submit Question
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-    <button class="add-answer-button">Add answer</button><br>
-    <button class="create-question-button">Create Question</button>
   </div>
-
 
   <div id="question-voting-page">
     <div class="row" style="margin-top:50px;">
