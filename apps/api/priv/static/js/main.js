@@ -2,10 +2,10 @@ $(function () {
 
   var barChart = null;
   hideAllPages();
-  render("/#/");
+  render(decodeURI(window.location.hash));
 
   $(window).on('hashchange', function(){
-    uri = decodeURI(window.location.hash);
+    var uri = decodeURI(window.location.hash);
     if (uri == '') {
       uri = '#/';
     }
