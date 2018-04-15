@@ -106,7 +106,9 @@ $(function () {
     createQuestionButton.click(function() {
       question = page.find(".question-input").val();
       answers = collectAnswers(page);
-      createQuestion(question, answers);
+      createQuestion(question, answers).then(function() {
+        window.location.hash = "/";
+      });
     });
   }
 
