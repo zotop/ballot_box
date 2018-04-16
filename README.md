@@ -12,3 +12,5 @@ and for later on voting on them.
 * repository : Ecto for communicating with Postgres database
 
 BDD testing with Espec.
+
+Logo credit goes to [michaelizer](https://github.com/michaelizer)
