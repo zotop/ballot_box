@@ -1,3 +1,6 @@
+<p align="center"><img src="logo/BBcolor1.png" alt="BallotBox" height="250px"></p>
+
+
 # BallotBox
 
 Umbrella application in Elixir for creating questions with possible answers
